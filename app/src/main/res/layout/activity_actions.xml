@@ -6,4 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".view.ActionsActivity">
 
+    <Button
+        android:id="@+id/viewTraysButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:text="@string/view_trays"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/createNewTrayButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/createNewTrayButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:text="@string/create_new_tray_submission"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewTraysButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
