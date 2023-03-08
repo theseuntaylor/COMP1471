@@ -14,7 +14,16 @@
         android:theme="@style/Theme.COMP1471CW"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.CreateTrayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ViewTraysActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ActionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.HospitalsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
