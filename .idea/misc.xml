@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/pf8124i/AndroidStudioProjects/COMP1471/app/src/main/res/layout/activity_create_sterilisation_process.xml" value="0.33" />
+        <entry key="..\:/Users/pf8124i/AndroidStudioProjects/COMP1471/app/src/main/res/layout/activity_create_tray.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.32" />
         <entry key="app/src/main/res/layout/activity_actions.xml" value="0.22165527343750002" />
         <entry key="app/src/main/res/layout/activity_hospitals.xml" value="0.37592592592592594" />

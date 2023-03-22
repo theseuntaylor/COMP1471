@@ -32,6 +32,18 @@ public class Constants {
             + STERILISATION_OFFICER + " ("
             + COLUMN_STERILISATION_OFFICER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_STERILISATION_OFFICER_NAME + " TEXT)";
+    //Cleaning table
+    public static final String CLEANING = "cleaning";
+    public static final String CLEANING_ID = "cleaning_id";
+    public static final String PROCESS_NAME = "process_name";
+    public static final String STEP_ID = "step_id";
+
+    public static final String CLEANING_CREATE = "create table "
+            + CLEANING + " ("
+            + CLEANING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PROCESS_NAME + " TEXT, "
+            + STEP_ID + " TEXT, "
+            +COLUMN_STERILISATION_OFFICER_ID + "TEXT)";
 
     // STERILISATION MACHINE
     public static final String STERILISATION_MACHINE = "sterilisation_machine";
@@ -55,8 +67,7 @@ public class Constants {
             + COLUMN_STEPS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_STEPS_NAME + " TEXT)"
             + COLUMN_REPLACEMENT_NEEDED + " TEXT)"
-            + COLUMN_STERILISATION_MACHINE_ID + " INTEGER, "
-            + " FOREIGN KEY (" + COLUMN_STERILISATION_MACHINE_ID + ") REFERENCES " + STERILISATION_MACHINE + "(" + COLUMN_STERILISATION_MACHINE_ID + "));";
+            + COLUMN_STERILISATION_MACHINE_ID + " INTEGER)";
 
 
     // CLEANING PROCESS
@@ -69,8 +80,7 @@ public class Constants {
             + CLEANING_PROCESS_TABLE + " ("
             + COLUMN_CLEANING_PROCESS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_STEPS_ID + " INTEGER"
-            + COLUMN_CLEANING_PROCESS_NAME + " TEXT)"
-            + " FOREIGN KEY (" + COLUMN_STEPS_ID + ") REFERENCES " + STEPS + "(" + COLUMN_STEPS_ID + "));";
+            + COLUMN_CLEANING_PROCESS_NAME + " TEXT)";
 
     // ORDER TABLE
     public static final String ORDER = "order_table";
@@ -83,7 +93,16 @@ public class Constants {
             + ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + ORDER_NAME + " TEXT, "
             + COLUMN_CLEANING_PROCESS_ID + " INTEGER, "
-            + TRAY_TYPE_NAME + " TEXT, "
-            + " FOREIGN KEY (" + COLUMN_CLEANING_PROCESS_ID + ") REFERENCES " + CLEANING_PROCESS_TABLE + "(" + COLUMN_CLEANING_PROCESS_ID + "));";
+            + TRAY_TYPE_NAME + " TEXT)"
+           ;
+//PROCEDURE TABLE
+    public static final String PROCEDURE_TABLE = "procedure_table";
+    public static final String PROCEDURE_TYPE_ID = "procedure_id";
+    public static final String PROCEDURE_NAME = "procedure_name";
+    public static final String PROCEDURE_CREATE = "create table "
+            + PROCEDURE_TABLE + " ("
+            + PROCEDURE_TYPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PROCEDURE_NAME + " TEXT, "
+            + COLUMN_TRAY_ID + " INTEGER) ";
 
 }

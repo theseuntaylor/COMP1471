@@ -6,15 +6,22 @@ import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_CLEANING_PROCE
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_CLEANING_PROCESS_NAME;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_DATE_STERILISATION;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_INSTRUMENT_TYPE;
+import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_REPLACEMENT_NEEDED;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STEPS_ID;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STEPS_NAME;
+import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STERILISATION_MACHINE_ID;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STERILISATION_OFFICER_NAME;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_TIME_STERILISATION;
+import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_TRAY_ID;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_TRAY_STATUS;
 import static com.theseuntaylor.comp1471cw.utils.Constants.DATABASE_NAME;
 import static com.theseuntaylor.comp1471cw.utils.Constants.DATABASE_VERSION;
 import static com.theseuntaylor.comp1471cw.utils.Constants.ORDER;
 import static com.theseuntaylor.comp1471cw.utils.Constants.ORDER_CREATE;
+import static com.theseuntaylor.comp1471cw.utils.Constants.PROCEDURE_CREATE;
+import static com.theseuntaylor.comp1471cw.utils.Constants.PROCEDURE_NAME;
+import static com.theseuntaylor.comp1471cw.utils.Constants.PROCEDURE_TABLE;
+import static com.theseuntaylor.comp1471cw.utils.Constants.PROCEDURE_TYPE_ID;
 import static com.theseuntaylor.comp1471cw.utils.Constants.STEPS;
 import static com.theseuntaylor.comp1471cw.utils.Constants.STEPS_CREATE;
 import static com.theseuntaylor.comp1471cw.utils.Constants.STERILISATION_OFFICER;
@@ -30,6 +37,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.theseuntaylor.comp1471cw.model.CleaningProcess;
+import com.theseuntaylor.comp1471cw.model.ProcedureModel;
 import com.theseuntaylor.comp1471cw.model.Steps;
 import com.theseuntaylor.comp1471cw.model.SterilisationOperator;
 import com.theseuntaylor.comp1471cw.model.TraysModel;
@@ -52,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(STERILISATION_OFFICER_CREATE);
         sqLiteDatabase.execSQL(STEPS_CREATE);
         sqLiteDatabase.execSQL(ORDER_CREATE);
+        sqLiteDatabase.execSQL(PROCEDURE_CREATE);
     }
 
     @Override
@@ -62,12 +71,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + STEPS);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ORDER);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + STERILISATION_OFFICER);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PROCEDURE_TABLE);
 
         Log.v(this.getClass().getName(), DATABASE_NAME + " database upgrade to version " +
                 newVersion + " - old data lost");
         onCreate(sqLiteDatabase);
     }
-
+    // tray
     public long createTray(TraysModel traysModel) {
         ContentValues rowValues = new ContentValues();
         rowValues.put(COLUMN_DATE_STERILISATION, traysModel.getDate());
@@ -76,10 +86,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         rowValues.put(COLUMN_INSTRUMENT_TYPE, traysModel.getInstrumenttype());
         return database.insertOrThrow(TABLE_TRAY_NAME, null, rowValues);
     }
+    public void  updateTray(TraysModel tray) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues rowValues = new ContentValues();
 
+        rowValues.put(COLUMN_INSTRUMENT_TYPE, tray.getInstrumenttype());
+        db.update(TABLE_TRAY_NAME, rowValues, COLUMN_TRAY_ID + " = ?", new String[]{String.valueOf(tray.getId())});
+
+        db.close();
+    }
+    public void deleteTray(TraysModel tray)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TRAY_NAME, COLUMN_TRAY_ID + " = ?",  new String[]{String.valueOf(tray.getId())});
+        db.close();
+    }
     // procedure type
+public  void addProcedure(ProcedureModel model)
+{
+    SQLiteDatabase db = this.getWritableDatabase();
 
-    // tray
+    ContentValues rowValues = new ContentValues();
+
+    rowValues.put(PROCEDURE_NAME, model.getProcedure_name());
+
+
+    db.insert(PROCEDURE_TABLE, null, rowValues);
+
+    db.close();
+}
+public  void updateProcedure(ProcedureModel model)
+{
+    SQLiteDatabase db = this.getWritableDatabase();
+
+    ContentValues rowValues = new ContentValues();
+
+    //rowValues.put(PROCEDURE_TYPE_ID, model.getProcedure_id());
+    rowValues.put(PROCEDURE_NAME, model.getProcedure_name());
+
+    db.update(PROCEDURE_TABLE, rowValues, PROCEDURE_TYPE_ID + " = ?", new String[]{String.valueOf(model.getProcedure_id())});
+
+    db.close();
+}
+    public void deleteProcedure(ProcedureModel model)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(PROCEDURE_TABLE, PROCEDURE_TYPE_ID + " = ?",  new String[]{String.valueOf(model.getProcedure_id())});
+        db.close();
+    }
+
 
 
     // process
@@ -139,19 +194,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // STEPS
-    /*public void addSteps() {
+    public void addSteps(Steps steps) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues rowValues = new ContentValues();
 
-        rowValues.put(COLUMN_STEPS_NAME, );
-        rowValues.put(COLUMN_CLEANING_PROCESS_NAME, cleaningProcess.getProcessName());
+        rowValues.put(COLUMN_STEPS_NAME, steps.getStepName());
+        rowValues.put(COLUMN_REPLACEMENT_NEEDED, steps.getReplacementneeded());
+        rowValues.put(COLUMN_STERILISATION_MACHINE_ID,steps.getSterilisationMachineId());
 
         db.insert(STEPS_CREATE, null, rowValues);
 
         db.close();
 
-    }*/
+    }
 
     public ArrayList<Steps> getSteps() {
         return null;

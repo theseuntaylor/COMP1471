@@ -2,10 +2,28 @@ package com.theseuntaylor.comp1471cw.model;
 
 public class Steps {
     private int stepId;
+
+    public Steps(int stepId, String stepName, String sterilisationMachineId, String replacementneeded) {
+        this.stepId = stepId;
+        this.stepName = stepName;
+        this.sterilisationMachineId = sterilisationMachineId;
+        this.replacementneeded = replacementneeded;
+    }
+
     public String stepName;
-    public int cleaningProcessId;
-    private String sterilisationTypeId;
-    private String operatorId;
+    private String sterilisationMachineId;
+    private  String replacementneeded;
+
+    public String getReplacementneeded() {
+        return replacementneeded;
+    }
+
+    public void setReplacementneeded(String replacementneeded) {
+        this.replacementneeded = replacementneeded;
+    }
+
+
+
 
     public int getStepId() {
         return stepId;
@@ -23,27 +41,14 @@ public class Steps {
         this.stepName = stepName;
     }
 
-    public int getCleaningProcessId() {
-        return cleaningProcessId;
+
+    public String getSterilisationMachineId() {
+        return sterilisationMachineId;
     }
 
-    public void setCleaningProcessId(int cleaningProcessId) {
-        this.cleaningProcessId = cleaningProcessId;
+    public void setSterilisationMachineId(String sterilisationMachineId) {
+        this.sterilisationMachineId = sterilisationMachineId;
     }
 
-    public String getSterilisationTypeId() {
-        return sterilisationTypeId;
-    }
 
-    public void setSterilisationTypeId(String sterilisationTypeId) {
-        this.sterilisationTypeId = sterilisationTypeId;
-    }
-
-    public String getOperatorId() {
-        return operatorId;
-    }
-
-    public void setOperatorId(String operatorId) {
-        this.operatorId = operatorId;
-    }
 }
