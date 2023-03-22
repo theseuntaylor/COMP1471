@@ -23,37 +23,54 @@ public class Constants {
             + COLUMN_TRAY_STATUS + " TEXT, "
             + COLUMN_INSTRUMENT_TYPE + " TEXT)";
 
-    // STERILISATION OFFICER
+    // STERILISATION OPERATOR
     public static final String STERILISATION_OFFICER = "sterilisation_officer";
     public static final String COLUMN_STERILISATION_OFFICER_ID = "sterilisation_officer_id";
     public static final String COLUMN_STERILISATION_OFFICER_NAME = "sterilisation_officer_name";
 
-    public static final String STERILISATION_OFFICER_CREATE = "create table "
+    public static final String STERILISATION_OFFICER_CREATE = "create_officer_table "
             + STERILISATION_OFFICER + " ("
             + COLUMN_STERILISATION_OFFICER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_STERILISATION_OFFICER_NAME + " TEXT)";
 
-    // CLEANING PROCESS
-    public static final String CLEANING_PROCESS_TABLE = "cleaning_process";
-    public static final String COLUMN_CLEANING_PROCESS_ID = "cleaning_process_id";
-    public static final String COLUMN_CLEANING_PROCESS_NAME = "cleaning_process_name";
+    // STERILISATION MACHINE
+    public static final String STERILISATION_MACHINE = "sterilisation_machine";
+    public static final String COLUMN_STERILISATION_MACHINE_ID = "sterilisation_machine_id";
+    public static final String COLUMN_STERILISATION_MACHINE_NAME = "sterilisation_machine_name";
 
-    public static final String CLEANING_PROCESS_CREATE = "create table "
-            + CLEANING_PROCESS_TABLE + " ("
-            + COLUMN_CLEANING_PROCESS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COLUMN_CLEANING_PROCESS_NAME + " TEXT)";
+    public static final String STERILISATION_MACHINE_CREATE = "create_machine_table "
+            + STERILISATION_MACHINE + " ("
+            + COLUMN_STERILISATION_MACHINE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_STERILISATION_MACHINE_NAME + " TEXT)";
 
     // STEPS TABLE
     public static final String STEPS = "steps";
     public static final String COLUMN_STEPS_ID = "steps_id";
     public static final String COLUMN_STEPS_NAME = "steps_name";
+    public static final String COLUMN_REPLACEMENT_NEEDED = "replacement_needed";
 
+    //create table STEPS (column_id, column_machine_id, column_step_name)
     public static final String STEPS_CREATE = "create table "
             + STEPS + " ("
             + COLUMN_STEPS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COLUMN_CLEANING_PROCESS_ID + " INTEGER, "
-            + COLUMN_STEPS_NAME + " TEXT, "
-            + " FOREIGN KEY (" + COLUMN_CLEANING_PROCESS_ID + ") REFERENCES " + CLEANING_PROCESS_TABLE + "(" + COLUMN_CLEANING_PROCESS_ID + "));";
+            + COLUMN_STEPS_NAME + " TEXT)"
+            + COLUMN_REPLACEMENT_NEEDED + " TEXT)"
+            + COLUMN_STERILISATION_MACHINE_ID + " INTEGER, "
+            + " FOREIGN KEY (" + COLUMN_STERILISATION_MACHINE_ID + ") REFERENCES " + STERILISATION_MACHINE + "(" + COLUMN_STERILISATION_MACHINE_ID + "));";
+
+
+    // CLEANING PROCESS
+    public static final String CLEANING_PROCESS_TABLE = "cleaning_process";
+    public static final String COLUMN_CLEANING_PROCESS_ID = "cleaning_process_id";
+    public static final String COLUMN_CLEANING_PROCESS_NAME = "cleaning_process_name";
+    // public static final String COLUMN_REPLACEMENT_NEEDED = "cleaning_replacement_needed";
+
+    public static final String CLEANING_PROCESS_CREATE = "create table "
+            + CLEANING_PROCESS_TABLE + " ("
+            + COLUMN_CLEANING_PROCESS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_STEPS_ID + " INTEGER"
+            + COLUMN_CLEANING_PROCESS_NAME + " TEXT)"
+            + " FOREIGN KEY (" + COLUMN_STEPS_ID + ") REFERENCES " + STEPS + "(" + COLUMN_STEPS_ID + "));";
 
     // ORDER TABLE
     public static final String ORDER = "order_table";
@@ -68,6 +85,5 @@ public class Constants {
             + COLUMN_CLEANING_PROCESS_ID + " INTEGER, "
             + TRAY_TYPE_NAME + " TEXT, "
             + " FOREIGN KEY (" + COLUMN_CLEANING_PROCESS_ID + ") REFERENCES " + CLEANING_PROCESS_TABLE + "(" + COLUMN_CLEANING_PROCESS_ID + "));";
-
 
 }

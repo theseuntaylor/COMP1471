@@ -1,40 +1,43 @@
 package com.theseuntaylor.comp1471cw.model;
 
 public class CleaningProcess {
-    private String cleaningProcessId;
-    public String cleaningProcessName;
-    private String sterilisationTypeId;
-    private String operatorId;
+    private int processId;
+    private String processName;
+    private int stepId;
 
-    public String getCleaningProcessId() {
-        return cleaningProcessId;
+    public CleaningProcess(int processId, String processName, int stepId) {
+        this.processId = processId;
+        this.processName = processName;
+        this.stepId = stepId;
     }
 
-    public void setCleaningProcessId(String cleaningProcessId) {
-        this.cleaningProcessId = cleaningProcessId;
+    public CleaningProcess(String processName, int stepId) {
+        this.processName = processName;
+        this.stepId = stepId;
     }
 
-    public String getCleaningProcessName() {
-        return cleaningProcessName;
+    public int getStepId() {
+        return stepId;
     }
 
-    public void setCleaningProcessName(String cleaningProcessName) {
-        this.cleaningProcessName = cleaningProcessName;
+    public void setStepId(int stepId) {
+        this.stepId = stepId;
     }
 
-    public String getSterilisationTypeId() {
-        return sterilisationTypeId;
+    public int getProcessId() {
+        return processId;
     }
 
-    public void setSterilisationTypeId(String sterilisationTypeId) {
-        this.sterilisationTypeId = sterilisationTypeId;
+    public void setProcessId(int processId) {
+        this.processId = processId;
     }
 
-    public String getOperatorId() {
-        return operatorId;
+    public String getProcessName() {
+        return processName;
     }
 
-    public void setOperatorId(String operatorId) {
-        this.operatorId = operatorId;
+    public void setProcessName(String processName) {
+        this.processName = processName;
     }
+
 }
