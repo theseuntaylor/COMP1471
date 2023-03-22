@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">COMP1471CW</string>
     <string name="view_trays">View Trays</string>
-    <string name="create_new_tray_submission">Create New Tray Submission</string>
+    <string name="create_new_tray_submission">Create Order</string>
+    <string name="initiate_sterilisation_process">Initiate Sterilisation Process</string>
+    <string name="create_new_sterilisation_operator">Add New Sterilisation Operator</string>
 </resources>

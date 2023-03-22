@@ -1,4 +1,4 @@
-package com.theseuntaylor.comp1471cw.view;
+package com.theseuntaylor.comp1471cw.model;
 
 public class HospitalModel {
 
