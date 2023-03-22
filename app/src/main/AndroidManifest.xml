@@ -14,10 +14,10 @@
         android:theme="@style/Theme.COMP1471CW"
         tools:targetApi="31">
         <activity
-            android:name=".CreateSterilisationProcessActivity"
+            android:name=".view.CreateSterilisationProcessActivity"
             android:exported="false" />
         <activity
-            android:name=".view.CreateTrayActivity"
+            android:name=".view.CreateTrayOrderActivity"
             android:exported="false" />
         <activity
             android:name=".view.ViewTraysActivity"

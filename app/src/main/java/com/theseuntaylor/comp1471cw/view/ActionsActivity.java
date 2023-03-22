@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,7 +37,7 @@ public class ActionsActivity extends AppCompatActivity {
             startActivity(i);
         });
         createTraysBtn.setOnClickListener(view -> {
-            Intent i = new Intent(this, CreateTrayActivity.class);
+            Intent i = new Intent(this, CreateTrayOrderActivity.class);
             startActivity(i);
         });
         createSterilisationOfficer.setOnClickListener(view -> {
