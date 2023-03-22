@@ -25,22 +25,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database = getWritableDatabase();
     }
 
-    /*public DataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-        database = getWritableDatabase();
-    }*/
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        // sqLiteDatabase.execSQL(TRAY_CREATE);
-        // sqLiteDatabase.execSQL(HOSPITAL_CREATE);
+        sqLiteDatabase.execSQL(TRAY_CREATE);
+        sqLiteDatabase.execSQL(CLEANING_PROCESS_CREATE);
         sqLiteDatabase.execSQL(STERILISATION_OFFICER_CREATE);
+        sqLiteDatabase.execSQL(STEPS_CREATE);
+        sqLiteDatabase.execSQL(ORDER_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TRAY_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_HOSPITAL_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CLEANING_PROCESS_TABLE);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + STEPS);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ORDER);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + STERILISATION_OFFICER);
 
         Log.v(this.getClass().getName(), DATABASE_NAME + " database upgrade to version " +
@@ -50,8 +50,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public long createTray(TraysModel traysModel) {
         ContentValues rowValues = new ContentValues();
-        rowValues.put(COLUMN_DATE_STERLISATION, traysModel.getDate());
-        rowValues.put(COLUMN_TIME_STERLISATION, traysModel.getTime());
+        rowValues.put(COLUMN_DATE_STERILISATION, traysModel.getDate());
+        rowValues.put(COLUMN_TIME_STERILISATION, traysModel.getTime());
         rowValues.put(COLUMN_TRAY_STATUS, traysModel.getTraystatus());
         rowValues.put(COLUMN_INSTRUMENT_TYPE, traysModel.getInstrumenttype());
         return database.insertOrThrow(TABLE_TRAY_NAME, null, rowValues);
