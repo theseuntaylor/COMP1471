@@ -26,7 +26,7 @@ public class ActionsActivity extends AppCompatActivity {
         viewTraysBtn = findViewById(R.id.viewTraysButton);
         createTraysBtn = findViewById(R.id.createNewTrayButton);
         createSterilisationOfficer = findViewById(R.id.createNewOperator);
-        sterilisationProcess = findViewById(R.id.initiateSterilisationProcess);
+        sterilisationProcess = findViewById(R.id.button_medicalProcedures);
 
         actions();
     }
@@ -45,7 +45,7 @@ public class ActionsActivity extends AppCompatActivity {
             dbHelper.addSterilisationOperator(new SterilisationOperator( "John Doe"));
         });
         sterilisationProcess.setOnClickListener(view -> {
-            Intent i = new Intent(this,CreateSterilisationProcessActivity.class);
+            Intent i = new Intent(this,MedicalProceduresActivity.class);
             startActivity(i);
         });
     }

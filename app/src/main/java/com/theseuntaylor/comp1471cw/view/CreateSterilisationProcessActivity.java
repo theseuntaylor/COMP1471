@@ -22,7 +22,6 @@ public class CreateSterilisationProcessActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     ArrayList<SterilisationOperator> sterilisationOperators;
     ArrayList<Steps> steps;
-    Button Sterlize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

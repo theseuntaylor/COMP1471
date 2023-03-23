@@ -5,4 +5,5 @@
     <string name="initiate_sterilisation_process">Initiate Sterilisation Process</string>
     <string name="create_new_sterilisation_operator">Add New Sterilisation Operator</string>
     <string name="concat_two_strings">%s %s</string>
+    <string name="medical_procedures">Medical Procedures</string>
 </resources>

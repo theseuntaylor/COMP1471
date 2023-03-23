@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import com.theseuntaylor.comp1471cw.R;
 import com.theseuntaylor.comp1471cw.model.CleaningProcess;
 import com.theseuntaylor.comp1471cw.model.InstrumentType;
+import com.theseuntaylor.comp1471cw.model.MedicalProcedureType;
 import com.theseuntaylor.comp1471cw.model.TraysModel;
 import com.theseuntaylor.comp1471cw.utils.DatabaseHelper;
 import com.theseuntaylor.comp1471cw.utils.TrayStatusEnum;
@@ -28,6 +29,7 @@ public class CreateTrayOrderActivity extends AppCompatActivity {
     ArrayList<CleaningProcess> cleaningProcesses;
     ArrayList<InstrumentType> instrumentTypes;
     Button orderplace;
+    private ArrayList<MedicalProcedureType> procedures;
 
 
     @Override
@@ -38,13 +40,20 @@ public class CreateTrayOrderActivity extends AppCompatActivity {
 
         cleaningProcesses = dbHelper.getAllProcess();
         instrumentTypes = dbHelper.showallinstruments();
+        procedures = dbHelper.getAllProcedures();
 
         List<String> processArray = new ArrayList<>();
         List<String> instrumentarray = new ArrayList<>();
+        List<String> procedureArray = new ArrayList<>();
 
         for (CleaningProcess process :
                 cleaningProcesses) {
             processArray.add(process.getProcessName());
+        }
+
+        for (MedicalProcedureType procedure :
+                procedures) {
+            procedureArray.add(procedure.getMedicalProcedureName());
         }
         for (InstrumentType instrument :
                 instrumentTypes) {
@@ -61,11 +70,15 @@ public class CreateTrayOrderActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerArray);
         ArrayAdapter<String> processAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, processArray);
         ArrayAdapter<String> instrumentAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, instrumentarray);
+        ArrayAdapter<String> procedureAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, procedureArray);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner trayTypeSpinner = findViewById(R.id.spinnerTrayType);
         Spinner processTypeSpinner = findViewById(R.id.spinnerProcessType);
         Spinner instrumentSpinner = findViewById(R.id.instrumentspinner);
+        Spinner procedureSpinner = findViewById(R.id.procedurespinner);
+
+
         orderplace = findViewById(R.id.OrderButton);
         orderplace.setOnClickListener(view -> {
 
@@ -78,8 +91,8 @@ public class CreateTrayOrderActivity extends AppCompatActivity {
                     currentDate,
                     "In Progress",
                     instrumentSpinner.getSelectedItem().toString(),
-                    String.valueOf(cleaningProcesses.get(processTypeSpinner.getSelectedItemPosition()).getProcessId())
-            );
+                    String.valueOf(cleaningProcesses.get(processTypeSpinner.getSelectedItemPosition()).getProcessId()),
+                    procedures.get(processTypeSpinner.getSelectedItemPosition()).getMedicalProcedureId());
 
             dbHelper.createTray(model);
 
@@ -89,6 +102,7 @@ public class CreateTrayOrderActivity extends AppCompatActivity {
         trayTypeSpinner.setAdapter(adapter);
         processTypeSpinner.setAdapter(processAdapter);
         instrumentSpinner.setAdapter(instrumentAdapter);
+        procedureSpinner.setAdapter(procedureAdapter);
 
     }
 }

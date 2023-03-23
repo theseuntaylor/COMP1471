@@ -21,9 +21,7 @@ public class ViewTraysActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
     private ArrayList<TraysModel> trays;
-    private TrayAdapter adapter;
 
-    ItemClickListener itemClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +31,11 @@ public class ViewTraysActivity extends AppCompatActivity {
 
         RecyclerView rv = findViewById(R.id.allTraysRecyclerView);
 
-        itemClickListener = new ItemClickListener(){
+        trays = dbHelper.getAllTrays();
+
+        ItemClickListener itemClickListener = new ItemClickListener(){
             @Override
-            public void editTray(int position) {
+            public void edit(int position) {
 
                 TraysModel tray = trays.get(position);
                 Intent i = new Intent(ViewTraysActivity.this, CreateSterilisationProcessActivity.class);
@@ -44,13 +44,18 @@ public class ViewTraysActivity extends AppCompatActivity {
             }
 
             @Override
-            public void deleteTray(int position) {
+            public void view(int position) {
+
+            }
+
+            @Override
+            public void delete(int position) {
                 dbHelper.deleteTray(String.valueOf(trays.get(position).getId()));
+                finish();
             }
         };
 
-        trays = dbHelper.getAllTrays();
-        adapter = new TrayAdapter(trays, itemClickListener);
+        TrayAdapter adapter = new TrayAdapter(trays, itemClickListener);
 
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));

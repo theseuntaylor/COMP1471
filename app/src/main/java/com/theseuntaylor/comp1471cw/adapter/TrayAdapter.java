@@ -44,8 +44,8 @@ public class TrayAdapter extends RecyclerView.Adapter<TrayAdapter.TrayViewHolder
     }
 
     private void handleOnClick(TrayViewHolder holder, int position) {
-        holder.deleteTray.setOnClickListener(view -> itemClickListener.deleteTray(position));
-        holder.editTray.setOnClickListener(view -> itemClickListener.editTray(position));
+        holder.deleteTray.setOnClickListener(view -> itemClickListener.delete(position));
+        holder.editTray.setOnClickListener(view -> itemClickListener.edit(position));
     }
 
     private void populateRecyclerView(@NotNull TrayViewHolder holder, int position) {

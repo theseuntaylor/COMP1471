@@ -33,6 +33,7 @@ import static com.theseuntaylor.comp1471cw.utils.Constants.STERILISATION_OFFICER
 import static com.theseuntaylor.comp1471cw.utils.Constants.STERILISATION_OFFICER_CREATE;
 import static com.theseuntaylor.comp1471cw.utils.Constants.TABLE_TRAY_NAME;
 import static com.theseuntaylor.comp1471cw.utils.Constants.TRAY_CREATE;
+import static com.theseuntaylor.comp1471cw.utils.Constants.TRAY_TYPE_NAME;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -43,12 +44,13 @@ import android.util.Log;
 
 import com.theseuntaylor.comp1471cw.model.CleaningProcess;
 import com.theseuntaylor.comp1471cw.model.InstrumentType;
-import com.theseuntaylor.comp1471cw.model.ProcedureModel;
+import com.theseuntaylor.comp1471cw.model.MedicalProcedureType;
 import com.theseuntaylor.comp1471cw.model.Steps;
 import com.theseuntaylor.comp1471cw.model.SterilisationOperator;
 import com.theseuntaylor.comp1471cw.model.TraysModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -98,6 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         rowValues.put(COLUMN_TRAY_STATUS, traysModel.getTraystatus());
         rowValues.put(COLUMN_INSTRUMENT_TYPE, traysModel.getInstrumenttype());
         rowValues.put(COLUMN_CLEANING_PROCESS_ID, traysModel.getCleaningProcessId());
+        rowValues.put(PROCEDURE_TYPE_ID, traysModel.getMedicalProcedureId());
         db.insert(TABLE_TRAY_NAME, null, rowValues);
 
         db.close();
@@ -113,13 +116,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursorOperators.moveToFirst()) {
             do {
-                //id
-                // name COLUMN_TRAY_NAME (1)
-                //time                  COLUMN_DATE_STERILISATION (2)
-                //date                  COLUMN_TIME_STERILISATION (3)
-                //traystatus                    COLUMN_TRAY_STATUS (4)
-                //instrumenttype                    COLUMN_CLEANING_PROCESS_ID (5)
-                //cleaningProcessId                 COLUMN_INSTRUMENT_TYPE (6)
                 allTrays.add(new TraysModel(
                         cursorOperators.getInt(0),
                         cursorOperators.getString(1),
@@ -127,7 +123,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursorOperators.getString(2),
                         cursorOperators.getString(4),
                         cursorOperators.getString(6),
-                        cursorOperators.getString(5)
+                        cursorOperators.getString(5),
+                        cursorOperators.getString(7)
                 ));
             } while (cursorOperators.moveToNext());
         }
@@ -155,36 +152,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // procedure type
-    public void addProcedure(ProcedureModel model) {
+    public void addProcedure(MedicalProcedureType model) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues rowValues = new ContentValues();
 
-        rowValues.put(PROCEDURE_NAME, model.getProcedure_name());
-
-
+        rowValues.put(PROCEDURE_NAME, model.getMedicalProcedureName());
         db.insert(PROCEDURE_TABLE, null, rowValues);
 
         db.close();
     }
 
-    public void updateProcedure(ProcedureModel model) {
+    public void updateProcedure(MedicalProcedureType model) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues rowValues = new ContentValues();
 
         //rowValues.put(PROCEDURE_TYPE_ID, model.getProcedure_id());
-        rowValues.put(PROCEDURE_NAME, model.getProcedure_name());
+        rowValues.put(PROCEDURE_NAME, model.getMedicalProcedureName());
 
-        db.update(PROCEDURE_TABLE, rowValues, PROCEDURE_TYPE_ID + " = ?", new String[]{String.valueOf(model.getProcedure_id())});
+        db.update(PROCEDURE_TABLE, rowValues, PROCEDURE_TYPE_ID + " = ?", new String[]{String.valueOf(model.getMedicalProcedureId())});
 
         db.close();
     }
 
-    public void deleteProcedure(ProcedureModel model) {
+    public void deleteProcedure(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(PROCEDURE_TABLE, PROCEDURE_TYPE_ID + " = ?", new String[]{String.valueOf(model.getProcedure_id())});
+        db.delete(PROCEDURE_TABLE, PROCEDURE_TYPE_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
+    }
+
+    public ArrayList<MedicalProcedureType> getAllProcedures() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorOperators = db.rawQuery("SELECT * FROM " + PROCEDURE_TABLE, null);
+
+        ArrayList<MedicalProcedureType> procedureTypes = new ArrayList<>();
+
+        if (cursorOperators.moveToFirst()) {
+            do {
+                procedureTypes.add(new MedicalProcedureType(
+                        cursorOperators.getString(0),
+                        cursorOperators.getString(1),
+                        cursorOperators.getString(2)
+                ));
+            } while (cursorOperators.moveToNext());
+        }
+
+        cursorOperators.close();
+
+        return procedureTypes;
     }
 
 
@@ -285,14 +303,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return steps;
     }
 
-    public void deleteSteps() {
-
-    }
-
-    public void updateSteps() {
-
-    }
-
     // add and get sterilisation operators
 
     public void addSterilisationOperator(SterilisationOperator sterilisationOperator) {
@@ -348,6 +358,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursorOperators.close();
 
         return instrumentTypes;
+    }
+
+    public ArrayList<TraysModel> getTraysWithProcedure(String procedureId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String id = procedureId;
+
+        Cursor cursorOperators = db.rawQuery("SELECT * FROM " + TABLE_TRAY_NAME + " WHERE procedure_id =? ", new String[]{id});
+        ArrayList<TraysModel> trays = new ArrayList<>();
+
+        if (cursorOperators.moveToFirst()) {
+            do {
+
+                trays.add(new TraysModel(
+                        cursorOperators.getString(1)
+                ));
+            } while (cursorOperators.moveToNext());
+        }
+
+        cursorOperators.close();
+
+        return trays;
     }
 
 }

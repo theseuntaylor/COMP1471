@@ -4,9 +4,20 @@ public class MedicalProcedureType {
     private String medicalProcedureId;
     private String medicalProcedureName;
 
+    public MedicalProcedureType(String medicalProcedureName, String trayId) {
+        this.medicalProcedureName = medicalProcedureName;
+        this.trayId = trayId;
+    }
+
+    public MedicalProcedureType(String medicalProcedureId, String medicalProcedureName, String trayId) {
+        this.medicalProcedureId = medicalProcedureId;
+        this.medicalProcedureName = medicalProcedureName;
+        this.trayId = trayId;
+    }
+
     // fks
     private String trayId;
-    private String patientId;
+//    private String patientId;
 
     public String getMedicalProcedureId() {
         return medicalProcedureId;
@@ -31,12 +42,12 @@ public class MedicalProcedureType {
     public void setTrayId(String trayId) {
         this.trayId = trayId;
     }
-
-    public String getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
-    }
+//
+//    public String getPatientId() {
+//        return patientId;
+//    }
+//
+//    public void setPatientId(String patientId) {
+//        this.patientId = patientId;
+//    }
 }

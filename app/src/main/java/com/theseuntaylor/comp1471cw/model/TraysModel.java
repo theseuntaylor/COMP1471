@@ -2,15 +2,22 @@ package com.theseuntaylor.comp1471cw.model;
 
 public class TraysModel {
     private int id;
-
-
-    //   private String trayid;
     private String name;
     private String time;
     private String date;
     private String traystatus;
     private String instrumenttype;
     private String cleaningProcessId;
+
+    public String getMedicalProcedureId() {
+        return medicalProcedureId;
+    }
+
+    public void setMedicalProcedureId(String medicalProcedureId) {
+        this.medicalProcedureId = medicalProcedureId;
+    }
+
+    private String medicalProcedureId;
 
     public String getCleaningProcessId() {
         return cleaningProcessId;
@@ -20,16 +27,21 @@ public class TraysModel {
         this.cleaningProcessId = cleaningProcessId;
     }
 
-    public TraysModel(String name, String time, String date, String traystatus, String instrumenttype, String cleaningProcessId) {
+    public TraysModel(String name) {
+        this.name = name;
+    }
+
+    public TraysModel(String name, String time, String date, String traystatus, String instrumenttype, String cleaningProcessId, String medicalProcedureId) {
         this.name = name;
         this.time = time;
         this.date = date;
         this.traystatus = traystatus;
         this.instrumenttype = instrumenttype;
         this.cleaningProcessId = cleaningProcessId;
+        this.medicalProcedureId = medicalProcedureId;
     }
 
-    public TraysModel(int id, String name, String time, String date, String traystatus, String instrumenttype, String cleaningProcessId) {
+    public TraysModel(int id, String name, String time, String date, String traystatus, String instrumenttype, String cleaningProcessId, String medicalProcedureId) {
         this.id = id;
         this.name = name;
         this.time = time;
@@ -37,6 +49,7 @@ public class TraysModel {
         this.traystatus = traystatus;
         this.instrumenttype = instrumenttype;
         this.cleaningProcessId = cleaningProcessId;
+        this.medicalProcedureId = medicalProcedureId;
     }
 
 
@@ -47,14 +60,6 @@ public class TraysModel {
     public void setId(int id) {
         this.id = id;
     }
-
-//    public String getTrayid() {
-//        return trayid;
-//    }
-//
-//    public void setTrayid(String trayid) {
-//        this.trayid = trayid;
-//    }
 
     public String getTime() {
         return time;

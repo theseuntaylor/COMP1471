@@ -1,7 +1,8 @@
 package com.theseuntaylor.comp1471cw;
 
 public interface ItemClickListener {
-    void editTray(int position);
+    void edit(int position);
+    void view(int position);
 
-    void deleteTray(int position);
+    void delete(int position);
 }

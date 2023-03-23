@@ -2,7 +2,7 @@ package com.theseuntaylor.comp1471cw.utils;
 
 public class Constants {
     public static final String DATABASE_NAME = "COMP1471";
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
 
     // STERILISATION OPERATOR
     public static final String STERILISATION_OFFICER = "sterilisation_officer";
@@ -52,6 +52,10 @@ public class Constants {
     public static final String COLUMN_INSTRUMENT_TYPE = "instrument_type";
 
 
+    public static final String PROCEDURE_TABLE = "procedure_table";
+    public static final String PROCEDURE_TYPE_ID = "procedure_id";
+    public static final String PROCEDURE_NAME = "procedure_name";
+
     // CLEANING PROCESS
     public static final String CLEANING_PROCESS_TABLE = "cleaning_process";
     public static final String COLUMN_CLEANING_PROCESS_ID = "cleaning_process_id";
@@ -73,6 +77,7 @@ public class Constants {
             + COLUMN_TIME_STERILISATION + " TEXT, "
             + COLUMN_TRAY_STATUS + " TEXT, "
             + COLUMN_CLEANING_PROCESS_ID + " TEXT, "
+            + PROCEDURE_TYPE_ID + " TEXT, "
             + COLUMN_INSTRUMENT_TYPE + " TEXT)";
 
     public static final String STERILISATION_OFFICER_CREATE = "create table "
@@ -108,13 +113,12 @@ public class Constants {
             + TRAY_TYPE_NAME + " TEXT)"
            ;
 //PROCEDURE TABLE
-    public static final String PROCEDURE_TABLE = "procedure_table";
-    public static final String PROCEDURE_TYPE_ID = "procedure_id";
-    public static final String PROCEDURE_NAME = "procedure_name";
     public static final String PROCEDURE_CREATE = "create table "
             + PROCEDURE_TABLE + " ("
             + PROCEDURE_TYPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + PROCEDURE_NAME + " TEXT, "
             + COLUMN_TRAY_ID + " INTEGER) ";
+
+    // GET SELECT * FROM TRAY_TABLE WHERE procedure_id is 1
 
 }

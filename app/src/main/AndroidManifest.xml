@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.HospitalsActivity"
+            android:name=".view.MedicalProceduresActivity"
             android:exported="true"></activity>
     </application>
 

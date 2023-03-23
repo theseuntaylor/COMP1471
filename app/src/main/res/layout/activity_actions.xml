@@ -36,18 +36,17 @@
         android:visibility="gone"
         android:text="@string/create_new_sterilisation_operator"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/initiateSterilisationProcess"
+        app:layout_constraintBottom_toTopOf="@+id/button_medicalProcedures"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createNewTrayButton" />
 
     <Button
-        android:id="@+id/initiateSterilisationProcess"
+        android:id="@+id/button_medicalProcedures"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/initiate_sterilisation_process"
+        android:text="@string/medical_procedures"
         android:textAllCaps="false"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
