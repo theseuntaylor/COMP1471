@@ -362,9 +362,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<TraysModel> getTraysWithProcedure(String procedureId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String id = procedureId;
 
-        Cursor cursorOperators = db.rawQuery("SELECT * FROM " + TABLE_TRAY_NAME + " WHERE procedure_id =? ", new String[]{id});
+        Cursor cursorOperators = db.rawQuery("SELECT * FROM " + TABLE_TRAY_NAME + " WHERE procedure_id =? ", new String[]{procedureId});
         ArrayList<TraysModel> trays = new ArrayList<>();
 
         if (cursorOperators.moveToFirst()) {
