@@ -1,35 +1,50 @@
 package com.theseuntaylor.comp1471cw.model;
 
 public class TraysModel {
-    private long id = -1;
- //   private String trayid;
+    private int id;
+
+
+    //   private String trayid;
+    private String name;
     private String time;
     private String date;
     private String traystatus;
     private String instrumenttype;
+    private String cleaningProcessId;
 
-    public TraysModel(String time, String date, String traystatus, String instrumenttype) {
+    public String getCleaningProcessId() {
+        return cleaningProcessId;
+    }
+
+    public void setCleaningProcessId(String cleaningProcessId) {
+        this.cleaningProcessId = cleaningProcessId;
+    }
+
+    public TraysModel(String name, String time, String date, String traystatus, String instrumenttype, String cleaningProcessId) {
+        this.name = name;
         this.time = time;
         this.date = date;
         this.traystatus = traystatus;
         this.instrumenttype = instrumenttype;
+        this.cleaningProcessId = cleaningProcessId;
     }
 
-
-    public TraysModel(long id, String time, String date, String traystatus, String instrumenttype) {
+    public TraysModel(int id, String name, String time, String date, String traystatus, String instrumenttype, String cleaningProcessId) {
         this.id = id;
+        this.name = name;
         this.time = time;
         this.date = date;
         this.traystatus = traystatus;
         this.instrumenttype = instrumenttype;
+        this.cleaningProcessId = cleaningProcessId;
     }
 
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,5 +88,12 @@ public class TraysModel {
         this.instrumenttype = instrumenttype;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

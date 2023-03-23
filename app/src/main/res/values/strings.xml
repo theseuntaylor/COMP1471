@@ -4,4 +4,5 @@
     <string name="create_new_tray_submission">Create Order</string>
     <string name="initiate_sterilisation_process">Initiate Sterilisation Process</string>
     <string name="create_new_sterilisation_operator">Add New Sterilisation Operator</string>
+    <string name="concat_two_strings">%s %s</string>
 </resources>
