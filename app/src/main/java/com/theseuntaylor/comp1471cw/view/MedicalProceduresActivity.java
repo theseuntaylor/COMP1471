@@ -5,10 +5,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.theseuntaylor.comp1471cw.ItemClickListener;
 import com.theseuntaylor.comp1471cw.R;
@@ -23,17 +29,48 @@ import java.util.ArrayList;
 public class MedicalProceduresActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_procedures);
         dbHelper = new DatabaseHelper(this);
-
+        floatingActionButton=findViewById(R.id.add_procedure);
         RecyclerView rv = findViewById(R.id.allHospitalsRecyclerView);
 
         ArrayList<MedicalProcedureType> medicalProcedures = dbHelper.getAllProcedures();
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(MedicalProceduresActivity.this);
+                final EditText edittext = new EditText(MedicalProceduresActivity.this);
+                //alert.setMessage("Enter Your Message");
+                alert.setTitle("Enter the procedure name");
+
+                alert.setView(edittext);
+            //    alert.setView(new Spinner(MedicalProceduresActivity.this));
+
+                alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //What ever you want to do with the value
+                        String YouEditTextValue = edittext.getText().toString();
+                        Toast.makeText(MedicalProceduresActivity.this,YouEditTextValue,Toast.LENGTH_LONG).show();
+                        dbHelper.addProcedure(new MedicalProcedureType(YouEditTextValue,"1"));
+
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // what ever you want to do with No option.
+                    }
+                });
+
+                alert.show();
+            }
+        });
         ItemClickListener itemClickListener = new ItemClickListener() {
             @Override
             public void edit(int position) {

@@ -134,7 +134,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allTrays;
     }
 
-
     public void updateTray(TraysModel tray) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues rowValues = new ContentValues();
@@ -158,6 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues rowValues = new ContentValues();
 
         rowValues.put(PROCEDURE_NAME, model.getMedicalProcedureName());
+        rowValues.put(COLUMN_TRAY_ID,model.getTrayId());
         db.insert(PROCEDURE_TABLE, null, rowValues);
 
         db.close();
@@ -267,20 +267,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // STEPS
-    public void addSteps(Steps steps) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues rowValues = new ContentValues();
-
-        rowValues.put(COLUMN_STEPS_NAME, steps.getStepName());
-        rowValues.put(COLUMN_REPLACEMENT_NEEDED, steps.getReplacementneeded());
-        rowValues.put(COLUMN_STERILISATION_MACHINE_ID, steps.getSterilisationMachineId());
-
-        db.insert(STEPS_CREATE, null, rowValues);
-
-        db.close();
-
-    }
+//    public void addSteps(Steps steps) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues rowValues = new ContentValues();
+//
+//        rowValues.put(COLUMN_STEPS_NAME, steps.getStepName());
+//        rowValues.put(COLUMN_REPLACEMENT_NEEDED, steps.getReplacementneeded());
+//        rowValues.put(COLUMN_STERILISATION_MACHINE_ID, steps.getSterilisationMachineId());
+//
+//        db.insert(STEPS_CREATE, null, rowValues);
+//
+//        db.close();
+//
+//    }
 
     public ArrayList<Steps> getSteps() {
         SQLiteDatabase db = this.getReadableDatabase();
