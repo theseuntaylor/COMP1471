@@ -1,12 +1,12 @@
 package com.theseuntaylor.comp1471cw.model;
 
 public class CleaningProcess {
-    private int processId;
+    private int officerId;
     private String processName;
     private int stepId;
 
-    public CleaningProcess(int processId, String processName, int stepId) {
-        this.processId = processId;
+    public CleaningProcess(int officerId, String processName, int stepId) {
+        this.officerId = officerId;
         this.processName = processName;
         this.stepId = stepId;
     }
@@ -24,12 +24,12 @@ public class CleaningProcess {
         this.stepId = stepId;
     }
 
-    public int getProcessId() {
-        return processId;
+    public int getOfficerId() {
+        return officerId;
     }
 
-    public void setProcessId(int processId) {
-        this.processId = processId;
+    public void setOfficerId(int officerId) {
+        this.officerId = officerId;
     }
 
     public String getProcessName() {

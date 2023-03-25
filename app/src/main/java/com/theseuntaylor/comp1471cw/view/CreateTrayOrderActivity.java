@@ -46,8 +46,7 @@ public class CreateTrayOrderActivity extends AppCompatActivity {
         List<String> instrumentarray = new ArrayList<>();
         List<String> procedureArray = new ArrayList<>();
 
-        for (CleaningProcess process :
-                cleaningProcesses) {
+        for (CleaningProcess process : cleaningProcesses) {
             processArray.add(process.getProcessName());
         }
 
@@ -91,7 +90,7 @@ public class CreateTrayOrderActivity extends AppCompatActivity {
                     currentDate,
                     "In Progress",
                     instrumentSpinner.getSelectedItem().toString(),
-                    String.valueOf(cleaningProcesses.get(processTypeSpinner.getSelectedItemPosition()).getProcessId()),
+                    String.valueOf(cleaningProcesses.get(processTypeSpinner.getSelectedItemPosition()).getStepId()),
                     procedures.get(processTypeSpinner.getSelectedItemPosition()).getMedicalProcedureId());
 
             dbHelper.createTray(model);

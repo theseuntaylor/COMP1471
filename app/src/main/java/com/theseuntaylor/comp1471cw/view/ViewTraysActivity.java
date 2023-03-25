@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.theseuntaylor.comp1471cw.ItemClickListener;
 import com.theseuntaylor.comp1471cw.R;
@@ -38,7 +36,7 @@ public class ViewTraysActivity extends AppCompatActivity {
             public void edit(int position) {
 
                 TraysModel tray = trays.get(position);
-                Intent i = new Intent(ViewTraysActivity.this, CreateSterilisationProcessActivity.class);
+                Intent i = new Intent(ViewTraysActivity.this, UpdateTrayActivity.class);
                 i.putExtra("cleaning_process_id", tray.getCleaningProcessId());
                 startActivity(i);
             }

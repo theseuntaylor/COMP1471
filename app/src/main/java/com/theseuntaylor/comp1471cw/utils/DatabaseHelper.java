@@ -10,6 +10,7 @@ import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_REPLACEMENT_NE
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STEPS_ID;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STEPS_NAME;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STERILISATION_MACHINE_ID;
+import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STERILISATION_OFFICER_ID;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_STERILISATION_OFFICER_NAME;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_TIME_STERILISATION;
 import static com.theseuntaylor.comp1471cw.utils.Constants.COLUMN_TRAY_ID;
@@ -207,14 +208,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     // process
-    public void addCleaningProcess(CleaningProcess cleaningProcess, String stepId) {
+    public void addCleaningProcess(CleaningProcess cleaningProcess) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues rowValues = new ContentValues();
 
-        rowValues.put(COLUMN_STEPS_ID, stepId);
+        rowValues.put(COLUMN_STEPS_ID, cleaningProcess.getStepId());
         rowValues.put(COLUMN_CLEANING_PROCESS_NAME, cleaningProcess.getProcessName());
-
+        rowValues.put(COLUMN_STERILISATION_OFFICER_ID,cleaningProcess.getOfficerId());
         db.insert(CLEANING_PROCESS_TABLE, null, rowValues);
 
         db.close();
@@ -235,7 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 //COLUMN_CLEANING_PROCESS_NAME
                 cleaningProcesses.add(new CleaningProcess(
                         cursorOperators.getInt(0),
-                        cursorOperators.getString(2),
+                        cursorOperators.getString(3),
                         cursorOperators.getInt(1)
                 ));
             } while (cursorOperators.moveToNext());
@@ -252,19 +253,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateCleaningProcess(CleaningProcess cleaningProcess) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues rowValues = new ContentValues();
-
-        // rowValues.put(COLUMN_CLEANING_PROCESS_ID, cleaningProcess.getOperatorName());
-        rowValues.put(COLUMN_STEPS_ID, cleaningProcess.getStepId());
-        rowValues.put(COLUMN_CLEANING_PROCESS_NAME, cleaningProcess.getProcessName());
-
-        db.update(CLEANING_PROCESS_TABLE, rowValues, COLUMN_CLEANING_PROCESS_ID + " = ?", new String[]{String.valueOf(cleaningProcess.getProcessId())});
-
-        db.close();
-    }
+//    public void updateCleaningProcess(CleaningProcess cleaningProcess) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues rowValues = new ContentValues();
+//
+//        // rowValues.put(COLUMN_CLEANING_PROCESS_ID, cleaningProcess.getOperatorName());
+//        rowValues.put(COLUMN_STEPS_ID, cleaningProcess.getStepId());
+//        rowValues.put(COLUMN_CLEANING_PROCESS_NAME, cleaningProcess.getProcessName());
+//
+//        db.update(CLEANING_PROCESS_TABLE, rowValues, COLUMN_CLEANING_PROCESS_ID + " = ?", new String[]{String.valueOf(cleaningProcess.getProcessId())});
+//
+//        db.close();
+//    }
 
     // STEPS
 //    public void addSteps(Steps steps) {
@@ -380,5 +381,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return trays;
     }
 
+    public String getCleaningProcessName(String cleaningProcessId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorOperators = db.rawQuery("SELECT * FROM " + CLEANING_PROCESS_TABLE + " WHERE cleaning_process_id =? ", new String[]{cleaningProcessId});
+        StringBuilder res = new StringBuilder();
+        if (cursorOperators.moveToFirst()) {
+            do {
+                res.append(cursorOperators.getString(3));
+            } while (cursorOperators.moveToNext());
+        }
+        return res.toString();
+    }
 }
 
