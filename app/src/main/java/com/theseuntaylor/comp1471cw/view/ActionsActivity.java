@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.theseuntaylor.comp1471cw.AppController;
 import com.theseuntaylor.comp1471cw.R;
 import com.theseuntaylor.comp1471cw.model.SterilisationOperator;
 import com.theseuntaylor.comp1471cw.utils.DatabaseHelper;
@@ -21,7 +22,8 @@ public class ActionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actions);
 
-        dbHelper = new DatabaseHelper(this);
+        AppController ac = AppController.getInstance();
+        dbHelper = ac.databaseHelper;
 
         viewTraysBtn = findViewById(R.id.viewTraysButton);
         createTraysBtn = findViewById(R.id.createNewTrayButton);

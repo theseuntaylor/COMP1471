@@ -55,7 +55,7 @@ import java.util.Arrays;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private SQLiteDatabase database;
+    private final SQLiteDatabase database;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -99,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         rowValues.put(COLUMN_DATE_STERILISATION, traysModel.getDate());
         rowValues.put(COLUMN_TIME_STERILISATION, traysModel.getTime());
         rowValues.put(COLUMN_TRAY_STATUS, traysModel.getTraystatus());
-        rowValues.put(COLUMN_INSTRUMENT_TYPE, traysModel.getInstrumenttype());
+        rowValues.put(COLUMN_INSTRUMENT_TYPE, traysModel.getInstrumentType().instrumentName);
         rowValues.put(COLUMN_CLEANING_PROCESS_ID, traysModel.getCleaningProcessId());
         rowValues.put(PROCEDURE_TYPE_ID, traysModel.getMedicalProcedureId());
         db.insert(TABLE_TRAY_NAME, null, rowValues);
@@ -123,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursorOperators.getString(3),
                         cursorOperators.getString(2),
                         cursorOperators.getString(4),
-                        cursorOperators.getString(6),
+                        new InstrumentType(cursorOperators.getString(6)),
                         cursorOperators.getString(5),
                         cursorOperators.getString(7)
                 ));
@@ -139,7 +139,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues rowValues = new ContentValues();
 
-        rowValues.put(COLUMN_INSTRUMENT_TYPE, tray.getInstrumenttype());
+        rowValues.put(COLUMN_TRAY_STATUS, tray.getTraystatus());
+        rowValues.put(COLUMN_DATE_STERILISATION, tray.getDate());
+        rowValues.put(COLUMN_TIME_STERILISATION, tray.getTime());
         db.update(TABLE_TRAY_NAME, rowValues, COLUMN_TRAY_ID + " = ?", new String[]{String.valueOf(tray.getId())});
 
         db.close();
@@ -379,6 +381,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursorOperators.close();
 
         return trays;
+    }
+
+    public TraysModel getSingleTray(String trayId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorOperators = db.rawQuery("SELECT * FROM " + TABLE_TRAY_NAME + " WHERE tray_id =? ", new String[]{trayId});
+        TraysModel res = null;
+        if (cursorOperators.moveToFirst()) {
+            do {
+                res = new TraysModel(
+                        cursorOperators.getInt(0),
+                        cursorOperators.getString(1),
+                        cursorOperators.getString(3),
+                        cursorOperators.getString(2),
+                        cursorOperators.getString(4),
+                        new InstrumentType(cursorOperators.getString(6)),
+                        cursorOperators.getString(5),
+                        cursorOperators.getString(7)
+                );
+            } while (cursorOperators.moveToNext());
+        }
+        return res;
     }
 
     public String getCleaningProcessName(String cleaningProcessId) {

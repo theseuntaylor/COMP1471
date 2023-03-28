@@ -1,12 +1,15 @@
 package com.theseuntaylor.comp1471cw.view;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-
+import com.theseuntaylor.comp1471cw.AppController;
 import com.theseuntaylor.comp1471cw.ItemClickListener;
 import com.theseuntaylor.comp1471cw.R;
 import com.theseuntaylor.comp1471cw.adapter.TrayAdapter;
@@ -25,25 +28,39 @@ public class ViewTraysActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_trays);
-        dbHelper = new DatabaseHelper(this);
+        AppController ac = AppController.getInstance();
+        dbHelper = ac.databaseHelper;
 
         RecyclerView rv = findViewById(R.id.allTraysRecyclerView);
 
         trays = dbHelper.getAllTrays();
 
-        ItemClickListener itemClickListener = new ItemClickListener(){
+        TrayAdapter adapter = new TrayAdapter(trays, getItemClickListener(trays));
+
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @NonNull
+    private ItemClickListener getItemClickListener(ArrayList<TraysModel> trays) {
+        return new ItemClickListener() {
             @Override
             public void edit(int position) {
-
                 TraysModel tray = trays.get(position);
                 Intent i = new Intent(ViewTraysActivity.this, UpdateTrayActivity.class);
                 i.putExtra("cleaning_process_id", tray.getCleaningProcessId());
+                i.putExtra("tray_id", tray.getId());
                 startActivity(i);
             }
 
             @Override
             public void view(int position) {
-
+                TraysModel tray = trays.get(position);
+                Toast.makeText(
+                        ViewTraysActivity.this,
+                        "You tapped on: " + tray.getName(),
+                        Toast.LENGTH_SHORT
+                ).show();
             }
 
             @Override
@@ -52,10 +69,5 @@ public class ViewTraysActivity extends AppCompatActivity {
                 finish();
             }
         };
-
-        TrayAdapter adapter = new TrayAdapter(trays, itemClickListener);
-
-        rv.setAdapter(adapter);
-        rv.setLayoutManager(new LinearLayoutManager(this));
     }
 }

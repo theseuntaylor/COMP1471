@@ -3,7 +3,7 @@ package com.theseuntaylor.comp1471cw.model;
 public class HospitalModel {
 
     private long id = -1;
-    private String hospital_name;
+    private final String hospital_name;
     public HospitalModel(String hospital_name) {
         this.hospital_name = hospital_name;
     }

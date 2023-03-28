@@ -53,7 +53,6 @@ public class MedicalProcedureAdapter extends RecyclerView.Adapter<MedicalProcedu
         if (!allMedicalProcedures.isEmpty()) {
             MedicalProcedureType item = allMedicalProcedures.get(position);
             String medicalProcedureName = item.getMedicalProcedureName();
-
             holder.medicalProcedureName.setText(medicalProcedureName);
         }
     }

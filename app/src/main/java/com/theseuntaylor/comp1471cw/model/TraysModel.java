@@ -6,7 +6,7 @@ public class TraysModel {
     private String time;
     private String date;
     private String traystatus;
-    private String instrumenttype;
+    private InstrumentType instrumentType;
     private String cleaningProcessId;
 
     public String getMedicalProcedureId() {
@@ -31,23 +31,23 @@ public class TraysModel {
         this.name = name;
     }
 
-    public TraysModel(String name, String time, String date, String traystatus, String instrumenttype, String cleaningProcessId, String medicalProcedureId) {
+    public TraysModel(String name, String time, String date, String traystatus, InstrumentType instrumentType, String cleaningProcessId, String medicalProcedureId) {
         this.name = name;
         this.time = time;
         this.date = date;
         this.traystatus = traystatus;
-        this.instrumenttype = instrumenttype;
+        this.instrumentType = instrumentType;
         this.cleaningProcessId = cleaningProcessId;
         this.medicalProcedureId = medicalProcedureId;
     }
 
-    public TraysModel(int id, String name, String time, String date, String traystatus, String instrumenttype, String cleaningProcessId, String medicalProcedureId) {
+    public TraysModel(int id, String name, String time, String date, String traystatus, InstrumentType instrumentType, String cleaningProcessId, String medicalProcedureId) {
         this.id = id;
         this.name = name;
         this.time = time;
         this.date = date;
         this.traystatus = traystatus;
-        this.instrumenttype = instrumenttype;
+        this.instrumentType = instrumentType;
         this.cleaningProcessId = cleaningProcessId;
         this.medicalProcedureId = medicalProcedureId;
     }
@@ -85,12 +85,12 @@ public class TraysModel {
         this.traystatus = traystatus;
     }
 
-    public String getInstrumenttype() {
-        return instrumenttype;
+    public InstrumentType getInstrumentType() {
+        return instrumentType;
     }
 
-    public void setInstrumenttype(String instrumenttype) {
-        this.instrumenttype = instrumenttype;
+    public void setInstrumenttype(InstrumentType instrumentType) {
+        this.instrumentType = instrumentType;
     }
 
     public String getName() {
